@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="views/public/styles.css">
+    <script src="icon-and-font-component.js" defer> </script>
+    <script src="color-component.js" defer> </script>
+    <script src="input-component.js" defer> </script>
+    <script src="tutorial.js" defer> </script>
+    <title>Lando97</title>
+</head>
+
+<body class="text-gray-700 bg-gray-200 font-playFair font-medium">
+    <!--HIDDEN TUTORIAL OVERLAY-->
+    <div id="tutorial-overlay" class="hidden fixed z-40 h-screen inset-0 bg-gray-500 opacity-40"></div>
+    <div id="info-div"
+        class="text-lg hidden top-1/4 mx-20 w-3/4 lg:top-1/4 lg:left-1/4 lg:w-1/2 fixed rounded z-50 justify-start shadow-xl bg-gray-100 font-md flex-col"
+        role="alert">
+        <div class = "mx-4 mt-3 mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        <p id="info-text"></p>
+        </div>
+        <div id = "info-button-div" class=" bg-gray-50 px-4 py-3 hidden justify-end rounded-b">
+            <button id = "delete-button"
+                class="w-32 mr-3 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                Delete
+            </button>
+            <button id = "cancel-button"
+                class="w-32 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Cancel
+            </button>
+        </div>
+    </div>
+    
+    <!--HIDDEN VIEW/DOWNLOAD BUTTON-->
+    <div id="view-modal" class="hidden fixed z-40 h-screen inset-0 bg-gray-500 opacity-40"></div>
+    <div id="view-button-div"
+        class="text-lg hidden top-1/4 mx-20 w-3/4 lg:top-1/4 lg:left-1/4 lg:w-1/2 fixed rounded z-50 justify-start shadow-xl bg-gray-100 font-md flex-col"
+        role="alert">
+        <div class="mx-4 mt-3 mb-1">
+            <p id="info-text">Thank you for checking out <em>Lando97</em>. Don't forget to download your creation before you click on <i>View</i>.</p>
+        </div>
+        <div class= "bg-gray-50 px-4 py-2 flex justify-end rounded-b">
+            <a id="view-button"
+                class="w-32 inline-flex justify-center mr-2 sm:mr-8 items-center rounded-md border border-transparent shadow-lg px-4 py-2 bg-gray-600 text-base font-medium text-gray-200 hover:text-white hover:bg-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                View
+            </a>
+            <a id="download-button"
+                class="w-40 text-bold inline-flex justify-center items-center rounded-md border border-gray-700 shadow-lg px-4 py-2 bg-gray-300 font-medium text-gray-900 hover:bg-gray-400 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>Download
+            </a>
+        </div>
+    </div>
+    
+    <!--TOOL-BAR-->
+    <div id="tool-bar"
+        class="px-2 py-1 shadow-lg bg-gray-100 border border-gray-700 text-gray-200 flex flex-col items-start justify-start sm:items-end lg:flex-row lg:items-center lg:justify-end xl:justify-around">
+        <!--Font+Icon-Wrapper-->
+        <div name="font-icon-wrapper" class="flex flex-col w-full sm:flex-row sm:justify-between">
+            <!--Font-Wrapper-->
+            <div name="font-wrapper" class="flex items-center justify-start mr-1">
+                <label class="text-xs text-gray-700 font-bold whitespace-nowrap">font-family:</label>
+                <div class="">
+                    <button id="font-description-button"
+                        class="whitespace-nowrap text-sm pl-2 h-8 flex items-center ml-2 mr-1 my-0 border border-gray-700 rounded bg-lightBlue-700 focus:text-white">Description<span
+                            class="ml-1 mr-1"><svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg></span>
+                    </button>
+                    <div id="font-description-menu"
+                        class="p-1 absolute z-50 opacity-90 hidden mt-1 ml-4 bg-blueGray-700 rounded flex-col w-48">
+                        <button value="playFair"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Playfair</button>
+                        <button value="roboto"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Roboto</button>
+                        <button value="raleway"
+                            class="mx-1 px-1  hover:bg-lightBlue-300 hover:text-white rounded text-left">Raleway</button>
+                        <button value="pacifico"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Pacifico</button>
+                        <button value="quicksand"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Quicksand</button>
+                        <button value="oswald"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Oswald</button>
+                        <button value="lato"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Lato</button>
+                        <button value="dosis"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Dosis</button>
+                        <button value="modak"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Modak</button>
+                        <button value="openSans"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded  text-left">Open
+                            Sans</button>
+                        <button value="orbitron"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded  text-left">Orbitron</button>
+                        <button value="freckleFace"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded  text-left">Freckle
+                            Face</button>
+                        <button value="blackOpsOne"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded  text-left">Black Ops
+                            One</button>
+                        <button value="indieFlower"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded  text-left">Indie
+                            Flower</button>
+                        <button value="barrio"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded  text-left">Barrio</button>
+                    </div>
+                </div>
+                <div>
+                    <button id="font-link-button"
+                        class="whitespace-nowrap text-sm pl-2 h-8 flex items-center ml-2 mr-1 border border-gray-700 rounded bg-lightBlue-700 focus:text-white">Links<span
+                            class="ml-1 mr-1"><svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg></span>
+                    </button>
+                    <div id="font-link-menu"
+                        class="p-1 absolute z-50 opacity-90 hidden mt-1 ml-4 bg-blueGray-700 rounded flex-col w-48">
+                        <button value="playFair"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Playfair</button>
+                        <button value="roboto"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Roboto</button>
+                        <button value="raleway"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Raleway</button>
+                        <button value="pacifico"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Pacifico</button>
+                        <button value="quicksand"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Quicksand</button>
+                        <button value="oswald"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Oswald</button>
+                        <button value="lato"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Lato</button>
+                        <button value="dosis"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Dosis</button>
+                        <button value="modak"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Modak</button>
+                        <button value="openSans"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded  text-left">Open
+                            Sans</button>
+                        <button value="orbitron"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded  text-left">Orbitron</button>
+                        <button value="freckleFace"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded  text-left">Freckle
+                            Face</button>
+                        <button value="blackOpsOne"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded  text-left">Black Ops
+                            One</button>
+                        <button value="indieFlower"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded  text-left">Indie
+                            Flower</button>
+                        <button value="barrio"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded  text-left">Barrio</button>
+                    </div>
+                </div>
+            </div>
+            <!--Icon-Wrapper-->
+            <div name="icon-wrapper" class="my-1 flex  items-baseline">
+                <label class="text-xs font-bold text-gray-700">icons:</label>
+                <div>
+                    <button id="language-button"
+                        class="text-sm pl-2 h-8 flex items-center ml-2 mr-1 my-0 border border-gray-700 rounded bg-lightBlue-700 focus:text-white">Language<span
+                            class="ml-1 mr-1"><svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg></span>
+                    </button>
+                    <div id="language-menu"
+                        class="p-1 absolute z-50 opacity-90 hidden mt-1 ml-4 bg-blueGray-700 rounded flex-col w-48">
+                        <button value="c-sharp"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">C#</button>
+                        <button value="cpp"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">C++</button>
+                        <button value="elixir"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Elixir</button>
+                        <button value="go"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Go</button>
+                        <button value="java"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Java</button>
+                        <button value="javascript"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">JavaScript</button>
+                        <button value="php"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">PHP</button>
+                        <button value="python"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white text-left">Python</button>
+                        <button value="swift"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Swift</button>
+                    </div>
+                </div>
+                <div>
+                    <button id="framework-button"
+                        class="text-sm pl-2 h-8 flex items-center my-0 mx-1 border border-gray-700 rounded bg-lightBlue-700 focus:text-white">Framework<span
+                            class="ml-1 mr-1"><svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg></span>
+                    </button>
+                    <div id="framework-menu"
+                        class="p-1 absolute z-50 opacity-90 hidden mt-1 ml-4 bg-blueGray-700 rounded flex-col w-48">
+                        <button value="angular"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Angular</button>
+                        <button value="django"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Django</button>
+                        <button value="docker" class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Docker</button>
+                        <button value="graphql"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">GraphQL</button>
+                        <button value="Laravel"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Laravel</button>
+                        <button value="dot-net"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">.Net</button>
+                        <button value="node"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Node</button>
+                        <button value="phoenix"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Phoenix</button>
+                        <button value="qt"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">QT</button>
+                        <button value="react"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">React</button>
+                        <button value="vue"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Vue</button>
+                    </div>
+                </div>
+                <div>
+                    <button id="database-button"
+                        class="text-sm pl-2 h-8 flex items-center ml-1 border border-gray-700 rounded bg-lightBlue-700 focus:text-white">Database<span
+                            class="ml-1 mr-1"><svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg></span>
+                    </button>
+                    <div id="database-menu"
+                        class="p-1 absolute z-50 opacity-90 hidden mt-1 ml-4 bg-blueGray-700 rounded flex-col w-48">
+                        <button value="cockroachdb" class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">CockroachDB</button>
+                        <button value="faunadb"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">FaunaDB</button>
+                        <button value="hbase" class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">HBase</button>
+                        <button value="mariadb"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">MariaDB</button>
+                        <button value="mongodb"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">MongoDB</button>
+                        <button value="mysql"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">MySQL</button>
+                        <button value="oracle"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Oracle</button>
+                        <button value="postgresql"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">PostgreSQL</button>
+                        <button value="redis"
+                            class="mx-1 px-1 hover:bg-lightBlue-300 hover:text-white rounded text-left">Redis</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--Remove Button-->
+        <div class="flex items-center">
+            <div class="sm:mx-4 lg:mr-10 xl:mr-64">
+                <button id="remove-icons-button"
+                    class="mr-2 sm:ml-2 text-sm p-2 h-8 flex justify-center items-center border border-gray-700 rounded bg-pink-600 hover:bg-pink-700 whitespace-nowrap focus:text-white">Remove
+                    Icons<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 bg-gray-600 rounded-full"
+                        viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+            <!--Development-Wrapper-->
+            <div name="development-wrapper">
+                <div>
+                    <div class="flex items-center justify-center">
+                        <label class="text-xs mr-2 font-bold text-gray-700">development:</label>
+                        <button id="select-project-button"
+                            class="text-sm whitespace-nowrap pl-2 h-8 flex items-center border border-gray-700 rounded bg-lightBlue-700 focus:text-white">Edit
+                            Project<span class="ml-1 mr-1"><svg class="fill-current h-4 w-4"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path
+                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                </svg></span>
+                        </button>
+                    </div>
+                </div>
+                <div id="project-menu"
+                    class="p-1 absolute z-50 opacity-90 mt-1 hidden bg-blueGray-700 rounded flex-col">
+                    <div value="placeholder"
+                        class="ml-3 px-2 text-left">No Projects
+                        added, yet.</div>
+                </div>
+            </div>
+            <!--SUBMIT BUTTON (renamed from 'build' to 'submit')-->
+            <button id="build-button" method="post"
+                class=" absolute top-0 right-0 sm:static ml-8 text-sm p-2 h-8 flex justify-center items-center m-1 border border-gray-700 rounded bg-blueGray-600 hover:bg-blueGray-700 focus:text-white">SUBMIT<span
+                    class="ml-1 mb-1 text-xl text-gray-200 font-bold">!</span>
+            </button>
+        </div>
+    </div>
+    <!--COMPONENT-WRAPER-->
+    <div id="component-wrapper"
+        class="py-8 mx-8 lg:px-2 flex flex-col md:justify-center md:items-center lg:flex-row lg:justify-between lg:items-start xl:justify-around xl:px-8">
+        <!--COLOR-COMPONENT-->
+        <div class="md:w-3/5 lg:w-1/2 lg:mr-10 xl:w-2/5">
+            <div class=" p-2 border border-gray-700 shadow-lg rounded bg-gray-100 sm:grid sm:grid-cols-2">
+                <div id="background-color-component " class="m-2">
+                    <label class="flex font-medium underline mb-1">Background-Color:<span id="background-color-field"
+                            class="inline-block ml-2 w-6 h-6 border-2 border-blue-500 rounded"></span></label>
+                    <div id="background-color-palette"
+                        class="hover:shadow-xl transition duration-500 ease-in-out border border-gray-900 inline-flex">
+                        <div value="pink" class="flex flex-col">
+                            <button name="pink" value="900" class="bg-pink-900 h-6 w-6 border border-gray-900"></button>
+                            <button name="pink" value="700" class="bg-pink-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="pink" value="500" class="bg-pink-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="pink" value="300" class="bg-pink-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="pink" value="100"
+                                class="bg-pink-100 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="rose" class="flex flex-col">
+                            <button name="rose" value="900" class="bg-rose-900 h-6 w-6 border border-gray-900"></button>
+                            <button name="rose" value="700" class="bg-rose-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="rose" value="500" class="bg-rose-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="rose" value="300" class="bg-rose-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="rose" value="100" class="bg-rose-100 h-6 w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="amber" class="flex flex-col">
+                            <button name="amber" value="900"
+                                class="bg-amber-900 h-6 w-6 border border-gray-900"></button>
+                            <button name="amber" value="700"
+                                class="bg-amber-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="amber" value="500"
+                                class="bg-amber-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="amber" value="300"
+                                class="bg-amber-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="amber" value="100"
+                                class="bg-amber-100 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="teal" class="flex flex-col">
+                            <button name="teal" value="900" class="bg-teal-900 h-6 w-6 border border-gray-900"></button>
+                            <button name="teal" value="700" class="bg-teal-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="teal" value="500" class="bg-teal-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="teal" value="300" class="bg-teal-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="teal" value="100"
+                                class="bg-teal-100 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="lightBlue" class="flex flex-col">
+                            <button name="lightBlue" value="900"
+                                class="bg-lightBlue-900 h-6 w-6 border border-gray-900"></button>
+                            <button name="lightBlue" value="700"
+                                class="bg-lightBlue-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="lightBlue" value="500"
+                                class="bg-lightBlue-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="lightBlue" value="300"
+                                class="bg-lightBlue-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="lightBlue" value="100"
+                                class="bg-lightBlue-100 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="indigo" class="flex flex-col">
+                            <button name="indigo" value="900"
+                                class="bg-indigo-900 h-6 w-6 border border-gray-900"></button>
+                            <button name="indigo" value="700"
+                                class="bg-indigo-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="indigo" value="500"
+                                class="bg-indigo-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="indigo" value="300"
+                                class="bg-indigo-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="indigo" value="100"
+                                class="bg-indigo-100 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="violet" class="flex flex-col">
+                            <button name="violet" value="900"
+                                class="bg-violet-900 h-6 w-6 border border-gray-900"></button>
+                            <button name="violet" value="700"
+                                class="bg-violet-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="violet" value="500"
+                                class="bg-violet-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="violet" value="300"
+                                class="bg-violet-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="violet" value="100"
+                                class="bg-violet-100  h-6 w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="blueGray" class="flex flex-col">
+                            <button name="blueGray" value="900"
+                                class="bg-blueGray-900 h-6 w-6 border border-gray-900"></button>
+                            <button name="blueGray" value="700"
+                                class="bg-blueGray-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="blueGray" value="500"
+                                class="bg-blueGray-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="blueGray" value="300"
+                                class="bg-blueGray-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="blueGray" value="100"
+                                class="bg-blueGray-100 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                    </div>
+                </div>
+                <div id="text-color-component hover:shadow-xl" class="m-2">
+                    <label class="flex font-medium underline mb-1">Text-Color:<span id="text-color-field"
+                            class="inline-block ml-2 w-6 h-6 border-2 border-blue-500 rounded"></span></label>
+                    <div id="text-color-palette"
+                        class="hover:shadow-2xl transition duration-500 ease-in-out border border-gray-900 inline-flex">
+                        <div value="pink" class="flex flex-col">
+                            <button name="pink" value="100" class="bg-pink-100 h-6 w-6 border border-gray-900"></button>
+                            <button name="pink" value="300" class="bg-pink-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="pink" value="500" class="bg-pink-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="pink" value="700" class="bg-pink-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="pink" value="900"
+                                class="bg-pink-900 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="rose" class="flex flex-col">
+                            <button name="rose" value="100" class="bg-rose-100 h-6 w-6 border border-gray-900"></button>
+                            <button name="rose" value="300" class="bg-rose-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="rose" value="500" class="bg-rose-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="rose" value="700" class="bg-rose-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="rose" value="900"
+                                class="bg-rose-900 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="amber" class="flex flex-col">
+                            <button name="amber" value="100"
+                                class="bg-amber-100 h-6 w-6 border border-gray-900"></button>
+                            <button name="amber" value="300"
+                                class="bg-amber-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="amber" value="500"
+                                class="bg-amber-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="amber" value="700"
+                                class="bg-amber-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="amber" value="900"
+                                class="bg-amber-900 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="teal" class="flex flex-col">
+                            <button name="teal" value="100" class="bg-teal-100 h-6 w-6 border border-gray-900"></button>
+                            <button name="teal" value="300" class="bg-teal-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="teal" value="500" class="bg-teal-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="teal" value="700" class="bg-teal-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="teal" value="900"
+                                class="bg-teal-900 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="lightBlue" class="flex flex-col">
+                            <button name="lightBlue" value="100"
+                                class="bg-lightBlue-100 h-6 w-6 border border-gray-900"></button>
+                            <button name="lightBlue" value="300"
+                                class="bg-lightBlue-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="lightBlue" value="500"
+                                class="bg-lightBlue-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="lightBlue" value="700"
+                                class="bg-lightBlue-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="lightBlue" value="900"
+                                class="bg-lightBlue-900 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="indigo" class="flex flex-col">
+                            <button name="indigo" value="100"
+                                class="bg-indigo-100 h-6 w-6 border border-gray-900"></button>
+                            <button name="indigo" value="300"
+                                class="bg-indigo-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="indigo" value="500"
+                                class="bg-indigo-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="indigo" value="700"
+                                class="bg-indigo-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="indigo" value="900"
+                                class="bg-indigo-900 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="violet" class="flex flex-col">
+                            <button name="violet" value="100"
+                                class="bg-violet-100 h-6 w-6 border border-gray-900"></button>
+                            <button name="violet" value="300"
+                                class="bg-violet-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="violet" value="500"
+                                class="bg-violet-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="violet" value="700"
+                                class="bg-violet-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="violet" value="900"
+                                class="bg-violet-900  h-6 w-6 border border-gray-900"></button>
+                        </div>
+                        <div value="blueGray" class="flex flex-col">
+                            <button name="blueGray" value="100"
+                                class="bg-blueGray-100 h-6 w-6 border border-gray-900"></button>
+                            <button name="blueGray" value="300"
+                                class="bg-blueGray-300 h-6 w-6 border border-gray-900"></button>
+                            <button name="blueGray" value="500"
+                                class="bg-blueGray-500 h-6 w-6 border border-gray-900"></button>
+                            <button name="blueGray" value="700"
+                                class="bg-blueGray-700 h-6 w-6 border border-gray-900"></button>
+                            <button name="blueGray" value="900"
+                                class="bg-blueGray-900 h-6  w-6 border border-gray-900"></button>
+                        </div>
+                    </div>
+                </div>
+                <!--Gradient-Buttons-->
+                <div class="mx-4 my-2 col-span-2">
+                    <span class="text-gray-700 font-medium underline">Gradient Color Stops:</span>
+                    <div id="gradient-buttons">
+                        <label class=" items-center">
+                            <input type="radio" name="gradient-button" value="monochrome" checked="checked">
+                            <span class="ml-1 mr-6">Monochrome</span>
+                        </label>
+                        <label class="inline-flex items-center mr-6">
+                            <input type="radio" id="range-button-default" name="gradient-button" value="mixed">
+                            <span class="ml-2">Mixed</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="gradient-button" value="none">
+                            <span class="ml-2">None</span>
+                        </label>
+                    </div>
+                </div>
+                <!--Cover-Buttons-->
+                <div class="mx-4 my-2 col-span-2">
+                    <span class="text-gray-700 font-medium underline">Project-Cover:</span>
+                    <div id="cover-buttons">
+                        <label class=" items-center">
+                            <input type="radio" name="cover-button" value="black" checked="checked">
+                            <span class="ml-1 mr-6">Dark</span>
+                            <label class="inline-flex items-center mr-6">
+                                <input type="radio" name="cover-button" value="white">
+                                <span class="ml-2">Bright</span>
+                            </label>
+                    </div>
+                </div>
+            </div>
+            <!--INPUT-COMPONENT-->
+            <div id="input-component"
+                class="mb-6 shadow-lg p-2 border rounded border-gray-700 mt-6 bg-gray-100 flex flex-col">
+                <label class="font-bold">Project Title:</label>
+                <input maxlength="40" id="input-title-field"
+                    class="mb-4 p-2 bg-gray-200 text-gray-700 border-2 border-blue-500 rounded leading-tight focus:outline-none focus:bg-gray-100 focus:border-blue-800"
+                    placeholder="...40 characters max...">
+                <label for="colors" class="font-bold">Project Description:</label>
+                <textarea maxlength="650" id="input-description-field"
+                    class="p-2 mb-4 bg-gray-200 text-gray-700 border-2 border-blue-500 rounded focus:outline-none focus:bg-gray-100 focus:border-blue-800"
+                    placeholder="...650 characters max..." rows="5"></textarea>
+                <label for="colors" class=" font-bold">Keywords:</label>
+                <textarea maxlength="150" id="input-keywords-field"
+                    class=" p-2 bg-gray-200 text-gray-700 border-2 border-blue-500 rounded focus:outline-none focus:bg-gray-100 focus:border-blue-800"
+                    placeholder="...150 characters max..." rows="2"></textarea>
+            </div>
+        </div>
+        <!--View-Box-->
+        <div class="flex flex-col md:w-4/5 lg:w-2/5">
+            <div class= "shadow-lg bg-gray-300 border-4 border-gray-900 rounded p-2">
+                <div class="border rounded border-gray-700 w-full h-96 xl:h-max ">
+                    <div class="relative h-full w-full mb-8">
+                        <div id="current-project"
+                            class="absolute p-2 h-full w-full border rounded overflow-y-auto flex flex-col justify-between">
+                            <div>
+                                <h2 id="project-title-placeholder" class="m-2 text-center font-bold">Your title...</h2>
+                                <p id="project-description-placeholder">Your project description lands here...</p>
+                            </div>
+                            <p id="project-keywords-placeholder">Keywords: </p>
+                        </div>
+                        <div id="icon-div"
+                            class="absolute h-full w-full z-30 bg-black border-2 rounded flex justify-center items-center flex-wrap transition duration-500 ease-out opacity-80 hover:opacity-0">
+                        </div>
+                    </div>
+                </div>
+                <!--Nav-Bar / Footer-->
+                <div id="nav-bar"
+                    class="h-16 mb-4 mt-6 px-4 py-2 flex justify-between items-end rounded border border-gray-700">
+                    <div
+                        class="text-xl transition duration-500 ease-out font-semibold border-transparent border-b-2">
+                        <a href="#" class="transition duration-500 ease-out">Home</a>
+                    </div>
+                    <div
+                        class="text-xl transition duration-500 ease-out font-semibold border-transparent border-b-2">
+                        <a href="#" class="transition duration-500 ease-out">About</a>
+                    </div>
+                </div>
+
+                <div id="footer"
+                    class="h-16 px-2 my-4 flex justify-end items-center rounded border border-gray-700">
+                    <img src="./views/icons/tailwind.png" class="border-0 rounded object-scale-down">
+                </div>
+            </div>
+
+            <!--EDIT/SET/ADD BUTTONS-->
+            <div
+                class="shadow-lg mt-4 xl:mt-10 xl:h-16 p-2 bg-gray-100 text-gray-200 border rounded border-gray-700 flex justify-between items-center whitespace-nowrap">
+                <div class="flex flex-col xl:flex-row">
+                    <button id="set-button"
+                        class="text-sm p-2 pl-3 h-8 w-32 flex items-center justify-center m-1 mr-2 border border-gray-700 rounded bg-indigo-600 hover:bg-indigo-700 focus:text-white">
+                        Set Content<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-3" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <button id="edit-button"
+                        class="text-sm p-2 pl-3 h-8 w-32 flex justify-center items-center m-1 border border-gray-700 rounded bg-indigo-600 hover:bg-indigo-700 whitespace-nowrap focus:text-white">Edit
+                        Content<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex flex-col xl:flex-row">
+                    <button id="add-button"
+                        class="text-sm p-2 h-8 flex justify-center items-center m-1 border border-gray-700 rounded bg-teal-600 hover:bg-teal-700 focus:text-white whitespace-nowrap">Add
+                        To Projects
+                        <span class="ml-1 mb-1 text-xl text-gray-200 font-bold">+</span></button>
+                </div>
+            </div>
+        </div>
+    </div> 
+</body>
+</html>

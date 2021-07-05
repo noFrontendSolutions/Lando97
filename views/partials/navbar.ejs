@@ -1,0 +1,84 @@
+<!--Gradient: None-->
+<% if(clientData.gradient === "none" ) { %>
+    <div 
+        class="h-16 px-4 py-2 flex justify-between items-end rounded border border-gray-700 bg-<%= clientData.background.color %>-<%= clientData.background.shade %> font-<%=clientData.font.links%> text-<%= clientData.text.color %>-<%= clientData.text.shade %> ">
+        <div class="text-xl transition duration-500 ease-out font-semibold border-<%=clientData.text.color%>-<%=clientData.text.shade %> border-b-2 hover:text-<%=clientData.text.color%>-<%= clientData.hoverShade %> hover:border-<%=clientData.text.color %>-<%= clientData.hoverShade %>    ">
+            <a href="#" class="transition duration-500 ease-out">Home</a>
+        </div>
+        <div class="text-xl transition duration-500 ease-out font-semibold border-<%=clientData.text.color%>-<%=clientData.text.shade %> border-transparent border-b-2 hover:text-<%=clientData.text.color%>-<%= clientData.hoverShade %> hover:border-<%=clientData.text.color %>-<%= clientData.hoverShade %>">
+            <a href="#" class="transition duration-500 ease-out">About</a>
+        </div>
+    </div>
+<% } %>
+
+<!--Gradient: Monochrome-->
+<% if(clientData.gradient==="monochrome" ) { %>
+    <% if (clientData.background.shade > clientData.text.shade) { %>
+        <div
+            class="h-16 px-4 py-2 flex justify-between items-end rounded border border-gray-700 bg-gradient-to-r from-<%= clientData.background.color %>-<%= clientData.background.shade %> to-<%= clientData.background.color %>-<%= clientData.background.shade - clientData.gradientRange / 2 %> font-<%=clientData.font.links%> text-<%= clientData.text.color %>-<%= clientData.text.shade %> ">
+            <div
+                class="text-xl transition duration-500 ease-out font-semibold border-b-2 border-<%=clientData.text.color%>-<%=clientData.text.shade %> hover:text-<%=clientData.text.color%>-<%= clientData.hoverShade %> hover:border-<%=clientData.text.color %>-<%= clientData.hoverShade %> ">
+                <a href="#" class="transition duration-500 ease-out">Home</a>
+            </div>
+            <div
+                class="text-xl transition duration-500 ease-out font-semibold border-b-2 border-<%=clientData.text.color%>-<%=clientData.text.shade %> hover:text-<%=clientData.text.color%>-<%= clientData.hoverShade %> hover:border-<%=clientData.text.color %>-<%= clientData.hoverShade %>">
+                <a href="#" class="transition duration-500 ease-out">About</a>
+            </div>
+        </div>
+    <% } %>
+    <% if (clientData.background.shade < clientData.text.shade) { %>
+        <div
+            class="h-16 px-4 py-2 flex justify-between items-end rounded border border-gray-700 bg-gradient-to-r from-<%= clientData.background.color %>-<%= clientData.background.shade %> to-<%= clientData.background.color %>-<%= clientData.background.shade + clientData.gradientRange / 2 %> font-<%=clientData.font.links%> text-<%= clientData.text.color %>-<%= clientData.text.shade %> ">
+            <div
+                class="text-xl transition duration-500 ease-out font-semibold border-b-2 border-<%=clientData.text.color%>-<%=clientData.text.shade %> hover:text-<%=clientData.text.color%>-<%= clientData.hoverShade %> hover:border-<%=clientData.text.color %>-<%= clientData.hoverShade %> ">
+                <a href="#" class="transition duration-500 ease-out">Home</a>
+            </div>
+            <div
+                class="text-xl transition duration-500 ease-out font-semibold border-b-2 border-<%=clientData.text.color%>-<%=clientData.text.shade %> hover:text-<%=clientData.text.color%>-<%= clientData.hoverShade %> hover:border-<%=clientData.text.color %>-<%= clientData.hoverShade %>">
+                <a href="#" class="transition duration-500 ease-out">About</a>
+            </div>
+        </div>
+    <% } %>
+    <% if (clientData.background.shade === clientData.text.shade) { %>
+            <div
+                class="h-16 px-4 py-2 flex justify-between items-end rounded border border-gray-700 bg-<%= clientData.background.color %>-<%= clientData.background.shade %> font-<%=clientData.font.links%> text-<%= clientData.text.color %>-<%= clientData.text.shade %> ">
+                <div
+                    class="text-xl transition duration-500 ease-out font-semibold border-<%=clientData.text.color%>-<%=clientData.text.shade %> border-b-2 hover:text-<%=clientData.text.color%>-<%= clientData.hoverShade %> hover:border-<%=clientData.text.color %>-<%= clientData.hoverShade %>">
+                    <a href="#" class="transition duration-500 ease-out">Home</a>
+                </div>
+                <div
+                    class="text-xl transition duration-500 ease-out font-semibold border-<%=clientData.text.color%>-<%=clientData.text.shade %> border-transparent border-b-2 hover:text-<%=clientData.text.color%>-<%= clientData.hoverShade %> hover:border-<%=clientData.text.color %>-<%= clientData.hoverShade %>">
+                    <a href="#" class="transition duration-500 ease-out">About</a>
+                </div>
+            </div>
+    <% } %>
+<% } %>
+<!--Gradient: Mixed-->
+<% if(clientData.gradient==="mixed" ) { %>
+    <% if (clientData.background.shade >= clientData.text.shade) { %>
+        <div
+            class="h-16 px-4 py-2 flex justify-between items-end rounded border border-gray-700 bg-gradient-to-r from-<%= clientData.background.color %>-<%= clientData.background.shade %> to-<%= clientData.text.color %>-<%= clientData.background.shade - clientData.gradientRange / 2 %> font-<%=clientData.font.links%> text-<%= clientData.text.color %>-<%= clientData.text.shade %> ">
+            <div
+                class="text-xl transition duration-500 ease-out font-semibold border-b-2 border-<%=clientData.text.color%>-<%=clientData.text.shade %> hover:text-<%=clientData.text.color%>-<%= clientData.hoverShade %> hover:border-<%=clientData.text.color %>-<%= clientData.hoverShade %> ">
+                <a href="#" class="transition duration-500 ease-out">Home</a>
+            </div>
+            <div
+                class="text-xl transition duration-500 ease-out font-semibold border-b-2 border-<%=clientData.text.color%>-<%=clientData.text.shade %> hover:text-<%=clientData.text.color%>-<%= clientData.hoverShade %> hover:border-<%=clientData.text.color %>-<%= clientData.hoverShade %>">
+                <a href="#" class="transition duration-500 ease-out">About</a>
+            </div>
+        </div>
+    <% } %>
+    <% if (clientData.background.shade < clientData.text.shade) { %>
+        <div
+            class="h-16 px-4 py-2 flex justify-between items-end rounded border border-gray-700 bg-gradient-to-r from-<%= clientData.background.color %>-<%= clientData.background.shade %> to-<%= clientData.text.color %>-<%= clientData.background.shade + clientData.gradientRange / 2 %> font-<%=clientData.font.links%> text-<%= clientData.text.color %>-<%= clientData.text.shade %> ">
+            <div
+                class="text-xl transition duration-500 ease-out font-semibold border-b-2 border-<%=clientData.text.color%>-<%=clientData.text.shade %> hover:text-<%=clientData.text.color%>-<%= clientData.hoverShade %> hover:border-<%=clientData.text.color %>-<%= clientData.hoverShade %> ">
+                <a href="#" class="transition duration-500 ease-out">Home</a>
+            </div>
+            <div
+                class="text-xl transition duration-500 ease-out font-semibold border-b-2 border-<%=clientData.text.color%>-<%=clientData.text.shade %> hover:text-<%=clientData.text.color%>-<%= clientData.hoverShade %> hover:border-<%=clientData.text.color %>-<%= clientData.hoverShade %>">
+                <a href="#" class="transition duration-500 ease-out">About</a>
+            </div>
+        </div>
+    <% } %>
+<% } %>

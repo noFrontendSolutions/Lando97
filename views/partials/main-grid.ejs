@@ -1,0 +1,123 @@
+<div class="grid grid-cols-1 md:grid-cols-2 
+<% if(clientData.projectCount >= 6) { %>
+    xl:grid-cols-3
+    <% } %> ">
+<% clientData.projectCollection.forEach(project => { %> 
+    <div class="border rounded border-gray-700 h-96">
+        <div class="relative h-full w-full mb-8 ">
+            <div
+                class="absolute p-2 h-full w-full border rounded overflow-y-auto flex flex-col justify-between bg-<%=clientData.background.color%>-<%=clientData.background.shade%> text-<%=clientData.text.color  %>-<%=clientData.text.shade%> font-<%=clientData.font.description %> ">
+                <div>
+                    <h2 class="m-2 text-center font-bold"><%=project.title%></h2>
+                    <p><%=project.description%> </p>
+                </div>
+                <p><%=project.keywords%> </p>
+            </div>
+            <div
+                class="absolute h-full w-full z-40 bg-<%=clientData.cover %>  border-2 rounded flex justify-center items-center transition duration-500 ease-out opacity-95 hover:opacity-0">
+                <h2 class="mt-10 absolute font-<%=clientData.font.links  %>  top-0 text-center font-bold text-3xl text-<%=clientData.text.color %>-<%=clientData.text.shade %>"><%=project.title  %> </h2>
+                <% if(project.language) { %>
+                    <img src="./icons/language/<%=project.language %>.png" class="h-16 w-16 rounded m-2"></img>
+                <% } %>
+                <% if(project.framework) { %>
+                    <img src="./icons/framework/<%=project.framework %>.png" class="h-16 w-16 rounded m-2"></img>
+                <% } %>
+                <% if(project.database) { %>
+                    <img src="./icons/database/<%=project.database %>.png" class="h-16 w-16 rounded m-2"></img>
+                <% } %>
+            </div>
+        </div>
+    </div>
+<% }) %>
+    <% if(clientData.projectCount <= 3) { %>
+        <% for(let i=1; i <= 4 - clientData.projectCount; i++) { %> 
+        <div class="border rounded border-gray-700 h-96 font-<%=clientData.font.links %>">
+            <div class="relative h-full w-full mb-8">
+                <div
+                    class="absolute p-2 h-full w-full border rounded overflow-y-auto flex items-center justify-center bg-black">
+                    <p class = "text-pink-700 text-2xl">Coming Soon!</p>
+                </div>
+                <div
+                    class="absolute h-full w-full z-40 bg-<%=clientData.cover %>  border-2 rounded flex justify-center items-center flex-wrap transition duration-500 ease-out opacity-95 hover:opacity-0">
+                </div>
+            </div>
+        </div>
+        <% } %> 
+    <% } %> 
+    <% if(clientData.projectCount >= 5 && clientData.projectCount % 3 !== 0) { %>
+        <% if (clientData.projectCount % 3 === 1 && clientData.projectCount % 2 === 0) { %> 
+            <div class="hidden xl:block border rounded border-gray-700 h-96 font-<%=clientData.font.links %>">
+                <div class="relative h-full w-full mb-8">
+                    <div
+                        class="absolute p-2 h-full w-full border rounded overflow-y-auto flex items-center justify-center bg-black">
+                        <p class="text-pink-700 text-2xl">Coming Soon!</p>
+                    </div>
+                    <div
+                        class="absolute h-full w-full z-40 bg-<%=clientData.cover %>  border-2 rounded flex justify-center items-center flex-wrap transition duration-500 ease-out opacity-95 hover:opacity-0">
+                    </div>
+                </div>
+            </div>
+            <div class="hidden xl:block border rounded border-gray-700 h-96 font-<%=clientData.font.links %>">
+                <div class="relative h-full w-full mb-8">
+                    <div
+                        class="absolute p-2 h-full w-full border rounded overflow-y-auto flex items-center justify-center bg-black">
+                        <p class="text-pink-700 text-2xl">Coming Soon!</p>
+                    </div>
+                    <div
+                        class="absolute h-full w-full z-40 bg-<%=clientData.cover %>  border-2 rounded flex justify-center items-center flex-wrap transition duration-500 ease-out opacity-95 hover:opacity-0">
+                    </div>
+                </div>
+            </div>
+        <% } %>
+        <% if (clientData.projectCount % 3===1 && clientData.projectCount % 2===1) { %>
+            <div class="border rounded border-gray-700 h-96 font-<%=clientData.font.links %>">
+                <div class="relative h-full w-full mb-8">
+                    <div
+                        class="absolute p-2 h-full w-full border rounded overflow-y-auto flex items-center justify-center bg-black">
+                        <p class="text-pink-700 text-2xl">Coming Soon!</p>
+                    </div>
+                    <div
+                        class="absolute h-full w-full z-40 bg-<%=clientData.cover %>  border-2 rounded flex justify-center items-center flex-wrap transition duration-500 ease-out opacity-95 hover:opacity-0">
+                    </div>
+                </div>
+            </div>
+            <div class="hidden xl:block border rounded border-gray-700 h-96 font-<%=clientData.font.links %>">
+                <div class="relative h-full w-full mb-8">
+                    <div
+                        class="absolute p-2 h-full w-full border rounded overflow-y-auto flex items-center justify-center bg-black">
+                        <p class="text-pink-700 text-2xl">Coming Soon!</p>
+                    </div>
+                    <div
+                        class="absolute h-full w-full z-40 bg-<%=clientData.cover %>  border-2 rounded flex justify-center items-center flex-wrap transition duration-500 ease-out opacity-95 hover:opacity-0">
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        <% if (clientData.projectCount % 3 === 2  && clientData.projectCount % 2 === 1) { %>
+            <div class="border rounded border-gray-700 h-96 font-<%=clientData.font.links %>">
+                <div class="relative h-full w-full mb-8">
+                    <div
+                        class="absolute p-2 h-full w-full border rounded overflow-y-auto flex items-center justify-center bg-black">
+                        <p class="text-pink-700 text-2xl">Coming Soon!</p>
+                    </div>
+                    <div
+                        class="absolute h-full w-full z-40 bg-<%=clientData.cover %>  border-2 rounded flex justify-center items-center flex-wrap transition duration-500 ease-out opacity-95 hover:opacity-0">
+                    </div>
+                </div>
+            </div>
+        <% } %>
+        <% if (clientData.projectCount % 3=== 2 && clientData.projectCount % 2 === 0) { %>
+            <div class="hidden xl:block border rounded border-gray-700 h-96 font-<%=clientData.font.links %>">
+                <div class="relative h-full w-full mb-8">
+                    <div
+                        class="absolute p-2 h-full w-full border rounded overflow-y-auto flex items-center justify-center bg-black">
+                        <p class="text-pink-700 text-2xl">Coming Soon!</p>
+                    </div>
+                    <div
+                        class="absolute h-full w-full z-40 bg-<%=clientData.cover %>  border-2 rounded flex justify-center items-center flex-wrap transition duration-500 ease-out opacity-95 hover:opacity-0">
+                    </div>
+                </div>
+            </div>
+            <% } %>
+    <% } %>
+</div>

@@ -1,0 +1,40 @@
+<% if(clientData.gradient === "none" ) { %>
+    <div 
+        class="h-16 px-2 flex justify-end items-center rounded border border-gray-700 bg-<%= clientData.background.color %>-<%= clientData.background.shade %>">
+       <img src="./icons/tailwind.png" class="border-0 rounded object-scale-down">
+    </div>
+<% } %>
+<% if(clientData.gradient==="monochrome" ) { %>
+    <% if(clientData.background.shade > clientData.text.shade) { %>
+        <div 
+            class="h-16 px-2 flex justify-end items-center rounded border border-gray-700 bg-gradient-to-l from-<%= clientData.background.color %>-<%= clientData.background.shade - clientData.gradientRange / 2 %> %> to-<%= clientData.background.color %>-<%= clientData.text.shade %>">
+            <img src="./icons/tailwind.png" class="border-0 rounded object-scale-down">
+        </div>
+    <% } %>
+    <% if (clientData.background.shade < clientData.text.shade) { %>
+        <div 
+            class="h-16 px-2 flex justify-end items-center rounded border border-gray-700 bg-gradient-to-l from-<%= clientData.background.color %>-<%= clientData.background.shade + clientData.gradientRange / 2 %> %> to-<%= clientData.background.color %>-<%= clientData.text.shade %>">
+            <img src="./icons/tailwind.png" class="border-0 rounded object-scale-down">
+        </div>
+    <% } %>
+    <% if(clientData.background.shade === clientData.text.shade) { %>
+        <div
+            class="h-16 px-2 flex justify-end items-center rounded border border-gray-700 bg-<%= clientData.background.color %>-<%= clientData.background.shade %>">
+            <img src="./icons/tailwind.png" class="border-0 rounded object-scale-down">
+        </div>
+    <% } %>
+<% } %>
+<% if(clientData.gradient==="mixed" ) { %>
+    <% if (clientData.background.shade >= clientData.text.shade) { %>
+        <div
+            class="h-16 px-2 flex justify-end items-center rounded border border-gray-700 bg-gradient-to-l from-<%= clientData.background.color %>-<%= clientData.background.shade - clientData.gradientRange / 2 %> %> to-<%= clientData.text.color %>-<%= clientData.text.shade %>">
+            <img src="./icons/tailwind.png" class="border-0 rounded object-scale-down">
+        </div>
+    <% } %>
+    <% if (clientData.background.shade < clientData.text.shade) { %>
+        <div
+            class="h-16 px-2 flex justify-end items-center rounded border border-gray-700 bg-gradient-to-l from-<%= clientData.background.color %>-<%= clientData.background.shade + clientData.gradientRange / 2 %> %> to-<%= clientData.text.color %>-<%= clientData.text.shade %>">
+            <img src="./icons/tailwind.png" class="border-0 rounded object-scale-down">
+        </div>
+    <% } %>
+<% } %>
