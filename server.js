@@ -86,18 +86,6 @@ app.get('/views', (req, res) => {
 })
 
 
-//app.get('/views/:id', (req, res) => {
-//    const { id } = req.params
-//    let matchingData = {}
-//    runtimeDatabase.forEach(entry => {
-//        if (entry.id === id) {
-//            matchingData = entry
-//            return
-//        }
-//    })
-//    res.render('skeleton', { clientData: matchingData, path: path, __dirname: __dirname, Math: Math })
-//})
-
 app.use(express.static(__dirname))
 
 app.listen(PORT, IP, () => { console.log(`Server listening on Ip: ${IP}, Port: ${PORT}`) })
