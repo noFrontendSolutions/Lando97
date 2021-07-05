@@ -92,8 +92,13 @@ const editProject = () => {
         return
     }
     inputTitleField.value = projectTitlePlaceholder.innerText
-    inputDescriptionField.value = projectDescriptionPlaceholder.innerText
-    inputKeywordsField.value = projectKeywordsPlaceholder.innerText.substr(10)
+    if (projectTitlePlaceholder) {
+        inputDescriptionField.value = projectDescriptionPlaceholder.innerText
+        
+    }
+    if (projectTitlePlaceholder) {
+        inputKeywordsField.value = projectKeywordsPlaceholder.innerText.substr(10)
+    }
     projectTitlePlaceholder.innerText = "Your title..."
     projectDescriptionPlaceholder.innerText = "Your project description lands here.."
     projectKeywordsPlaceholder.innerText = "Keywords: "
