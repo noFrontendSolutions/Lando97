@@ -19,7 +19,7 @@ Now you should be able to run _Lando97_ in your browser on __localhost:8080__.
 
 If you don't want to install Tailwind CSS globally, the following commands should also work:
 ```bash
-npm install --only=prod
+npm install --production
 npx tailwindcss build src/styles.css -o views/public/styles.css
 npm start
 ```
