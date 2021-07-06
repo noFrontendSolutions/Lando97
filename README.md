@@ -9,7 +9,7 @@ UI                         |Landing Page (Download)
 
 ## Installation
 ---
-Type in the the following commands in your CLI (you need to have Node / NPM installed on your local machine):
+Using your preferred CLI, switch into the Lando97 folder and type in the following (you need to have Node / NPM installed on your local machine):
 ```bash
 npm install
 npm run build-css
