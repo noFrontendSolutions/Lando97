@@ -1,6 +1,6 @@
 ## Documentation
 ---
-With _Lando97_ you can create a responsive landing page for your programming portfolio, using the template seen on the image below on the right. If you're a beginning programmer, this project might interest you if you intend to work with Tailwind CSS in the future. I did not use any JS frontend framework or library. Just vanilla JS, Node, and Tailwind CSS. 
+With _Lando97_ you can create a responsive landing page for your programming portfolio, using the template seen on the image below on the right. If you're a beginning programmer like me, this project might interest you if you intend to work with Tailwind CSS in the future. I did not use any JS frontend framework or library. Just modern JS, Node, and Tailwind CSS. 
 
 
 UI                         |Landing Page (Download)
