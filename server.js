@@ -7,7 +7,7 @@ const app = express()
 const { v4: uuidv4 } = require('uuid');
 
 const PORT = process.env.PORT || 8080
-const IP = '127.0.0.1'
+//const IP = '127.0.0.1'
 
 let runtimeDatabase = []
 
@@ -88,4 +88,4 @@ app.get('/views', (req, res) => {
 
 app.use(express.static(__dirname))
 
-app.listen(PORT, IP, () => { console.log(`Server listening on Ip: ${IP}, Port: ${PORT}`) })
+app.listen(PORT, () => { console.log(`Server listening on Port: ${PORT}`) })
