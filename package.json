@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "build-css": "tailwindcss build src/styles.css -o views/public/styles.css"
+    "build": "tailwindcss build src/styles.css -o views/public/styles.css"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,6 @@
   "devDependencies": {
     "autoprefixer": "^10.2.5",
     "postcss": "^8.2.15",
-    "tailwindcss": "^3.0.16"
+    "tailwindcss": "^2.1.2"
   }
 }
